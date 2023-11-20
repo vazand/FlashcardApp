@@ -10,38 +10,41 @@ import org.apache.pekko.stream.impl.Completed
 
 import org.mongodb.scala.bson.ObjectId
 
-object Person {
+class MongoDbInjector{
+
+}
+/* object Person {
   def apply(firstName: String, lastName: String): Person =
     Person(new ObjectId(), firstName, lastName)
 }
-case class Person(_id: ObjectId, firstName: String, lastName: String)
+case class Person(_id: ObjectId, firstName: String, lastName: String) */
 
-import org.bson.codecs.configuration.CodecRegistries.{
+/* import org.bson.codecs.configuration.CodecRegistries.{
   fromRegistries,
   fromProviders
 }
 import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
-import org.mongodb.scala.bson.codecs.Macros._
+import org.mongodb.scala.bson.codecs.Macros._ */
 
-class MongoDbExample @Inject() (implicit ec: ExecutionContext) {
+/* class MongoDbExample @Inject() (implicit ec: ExecutionContext) {
   val codecRegistry =
     fromRegistries(fromProviders(classOf[Person]), DEFAULT_CODEC_REGISTRY)
-  val mongoClient: MongoClient = MongoClient("mongodb://localhost:27017")
-  val database: MongoDatabase = mongoClient.getDatabase("myexampledb").withCodecRegistry(codecRegistry)
-  val collectionPerson: MongoCollection[Person] = database.getCollection("persons")
 
-  //val personCollDb = database.withCodecRegistry(codecRegistry)
+  val mongoClient: MongoClient = MongoClient("mongodb://localhost:27017")
+
+  val database: MongoDatabase =
+    mongoClient.getDatabase("anewdb").withCodecRegistry(codecRegistry)
+
+  val collectionPerson: MongoCollection[Person] =
+    database.getCollection("persons")
 
   val person: Person = Person("Ada", "Lovelace")
   val insertOnePerson = collectionPerson.insertOne(person)
 
- //val insertOnebePerson =  collectionPerson.insertOne(person)
-  //collection.insertOne(person).results()
-
-
+  mongoClient.close()
 }
-
-class MongoDbInjector @Inject() (implicit ec: ExecutionContext) {
+ */
+/* class MongoDbInjector @Inject() (implicit ec: ExecutionContext) {
   val mongoClient: MongoClient = MongoClient("mongodb://localhost:27017")
   val database: MongoDatabase = mongoClient.getDatabase("myexampledb")
   val collection: MongoCollection[Document] = database.getCollection("sample")
@@ -55,12 +58,12 @@ class MongoDbInjector @Inject() (implicit ec: ExecutionContext) {
   )
 
   // Insert the document asynchronously
-  val insertResultFuture = collection.insertOne(doc).toFuture()
+  // val insertResultFuture = collection.insertOne(doc).toFuture()
 
   // Handle the result asynchronously
-  insertResultFuture.onComplete {
+  /* insertResultFuture.onComplete {
     case scala.util.Success(result) => println(s"Inserted: $result")
     case scala.util.Failure(error) =>
       println(s"Failed to insert document: $error")
-  }
-}
+  } */
+} */

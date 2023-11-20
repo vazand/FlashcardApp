@@ -5,7 +5,18 @@
 
 # An example controller showing a sample home page
 GET     /                           vazand.github.io.controllers.HomeController.index()
-POST    /insert                     vazand.github.io.controllers.HomeController.insertOne()
 
++nocsrf
+POST    /create                     vazand.github.io.controllers.HomeController.createData()
+
+GET    /read                     vazand.github.io.controllers.HomeController.findOne()
+
++nocsrf
+POST    /delete                     vazand.github.io.controllers.HomeController.deleteOne()
+
++nocsrf
+POST    /update                     vazand.github.io.controllers.HomeController.updateOne()
+
+GET    /all                     vazand.github.io.controllers.HomeController.findAll()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
