@@ -24,16 +24,18 @@ import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
 import org.mongodb.scala.bson.codecs.Macros._
 
 class MongoDbExample @Inject() (implicit ec: ExecutionContext) {
-  val mongoClient: MongoClient = MongoClient("mongodb://localhost:27017")
-  val database: MongoDatabase = mongoClient.getDatabase("myexampledb")
-  val collection: MongoCollection[Document] = database.getCollection("sample")
   val codecRegistry =
     fromRegistries(fromProviders(classOf[Person]), DEFAULT_CODEC_REGISTRY)
+  val mongoClient: MongoClient = MongoClient("mongodb://localhost:27017")
+  val database: MongoDatabase = mongoClient.getDatabase("myexampledb").withCodecRegistry(codecRegistry)
+  val collectionPerson: MongoCollection[Person] = database.getCollection("persons")
 
-  val personCollections = database.withCodecRegistry(codecRegistry)
+  //val personCollDb = database.withCodecRegistry(codecRegistry)
 
   val person: Person = Person("Ada", "Lovelace")
-  
+  val insertOnePerson = collectionPerson.insertOne(person)
+
+ //val insertOnebePerson =  collectionPerson.insertOne(person)
   //collection.insertOne(person).results()
 
 
